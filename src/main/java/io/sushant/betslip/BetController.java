@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
 @RequestMapping("/bets")
@@ -32,5 +33,10 @@ public class BetController {
         kafkaTemplate.send("bets.placed", event);
 
         return savedBet;
+    }
+
+    @GetMapping
+    public java.util.List<Bet> getAllBets() {
+        return betRepository.findAll();
     }
 }
